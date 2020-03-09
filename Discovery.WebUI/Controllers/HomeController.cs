@@ -19,30 +19,7 @@ namespace Discovery.WebUI.Controllers
             return View();
         }
 
-        public ActionResult Child()
-        {
-            Child c = new Child();
 
-
-            return View(c);
-        }
-
-        [HttpPost]
-        public ActionResult Child(Child c)
-        {
-            context.Children.Add(c);
-            context.SaveChanges();
-
-            return RedirectToAction("Index");
-        }
-
-
-        public ActionResult ChildTable()
-        {
-            List<Child> c = context.Children.ToList();
-
-            return View(c);
-        }
 
     }
 }
