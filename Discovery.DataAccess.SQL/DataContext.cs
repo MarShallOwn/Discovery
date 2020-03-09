@@ -20,5 +20,6 @@ namespace Discovery.DataAccess.SQL
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Parent> Parents { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

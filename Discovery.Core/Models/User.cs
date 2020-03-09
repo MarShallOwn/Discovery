@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 
 namespace Discovery.Core.Models
 {
-    public class Teacher : BaseEntity
+    public class User : BaseEntity
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string PhoneNumber { get; set; }
         public string Email { get; set; }
-        public string ClassRoom { get; set; }
-
-        public ICollection<Child> Children { get; set; }
-
+        public string Street { get; set; }
+        public string City { get; set; }
+        public string asp_User_ID { get; set; }
     }
 }
