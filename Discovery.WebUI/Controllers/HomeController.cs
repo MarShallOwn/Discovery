@@ -19,7 +19,5 @@ namespace Discovery.WebUI.Controllers
             return View();
         }
 
-
-
     }
 }
