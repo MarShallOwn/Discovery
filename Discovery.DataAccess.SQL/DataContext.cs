@@ -11,7 +11,7 @@ namespace Discovery.DataAccess.SQL
     public class DataContext : DbContext
     {
         public DataContext()
-            : base("Discovery")
+            : base("DefaultConnection")
         {
 
         }
