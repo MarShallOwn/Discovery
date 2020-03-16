@@ -13,7 +13,7 @@ namespace Discovery.DataAccess.SQL.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202003141810286_Initial"; }
+            get { return "202003160753123_Initial"; }
         }
         
         string IMigrationMetadata.Source

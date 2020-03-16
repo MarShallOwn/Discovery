@@ -16,7 +16,8 @@ namespace Discovery.Core.Models
         public string Degree { get; set; }
         public string Disability_Type { get; set; }
         public string ClassRoom { get; set; }
-        public Teacher TeacherId { get; set; }
+        public string TeacherId { get; set; }
+        public Teacher Teacher { get; set; }
 
         public Child()
         {

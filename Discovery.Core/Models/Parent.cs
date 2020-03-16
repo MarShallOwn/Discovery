@@ -8,8 +8,11 @@ namespace Discovery.Core.Models
 {
     public class Parent : BaseEntity
     {
-        public Child Child_Id { get; set; }
+
         public string Child_Weekly_Report { get; set; }
-        public User UserId { get; set; }
+        public string ChildId { get; set; }
+        public string UserId { get; set; }
+        public Child Child { get; set; }
+        public NurseryUser User { get; set; }
     }
 }
