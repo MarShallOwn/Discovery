@@ -20,12 +20,12 @@ namespace Discovery.DataAccess.SQL.Migrations
                         Degree = c.String(),
                         Disability_Type = c.String(),
                         ClassRoom = c.String(),
+                        TeacherId = c.String(maxLength: 128),
                         CreatedAt = c.DateTimeOffset(nullable: false, precision: 7),
-                        TeacherId_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Teachers", t => t.TeacherId_Id)
-                .Index(t => t.TeacherId_Id);
+                .ForeignKey("dbo.Teachers", t => t.TeacherId)
+                .Index(t => t.TeacherId);
             
             CreateTable(
                 "dbo.Teachers",
@@ -62,18 +62,18 @@ namespace Discovery.DataAccess.SQL.Migrations
                     {
                         Id = c.String(nullable: false, maxLength: 128),
                         Child_Weekly_Report = c.String(),
+                        ChildId = c.String(maxLength: 128),
+                        UserId = c.String(maxLength: 128),
                         CreatedAt = c.DateTimeOffset(nullable: false, precision: 7),
-                        Child_Id_Id = c.String(maxLength: 128),
-                        UserId_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Children", t => t.Child_Id_Id)
-                .ForeignKey("dbo.Users", t => t.UserId_Id)
-                .Index(t => t.Child_Id_Id)
-                .Index(t => t.UserId_Id);
+                .ForeignKey("dbo.Children", t => t.ChildId)
+                .ForeignKey("dbo.NurseryUsers", t => t.UserId)
+                .Index(t => t.ChildId)
+                .Index(t => t.UserId);
             
             CreateTable(
-                "dbo.Users",
+                "dbo.NurseryUsers",
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
@@ -91,13 +91,13 @@ namespace Discovery.DataAccess.SQL.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.Parents", "UserId_Id", "dbo.Users");
-            DropForeignKey("dbo.Parents", "Child_Id_Id", "dbo.Children");
-            DropForeignKey("dbo.Children", "TeacherId_Id", "dbo.Teachers");
-            DropIndex("dbo.Parents", new[] { "UserId_Id" });
-            DropIndex("dbo.Parents", new[] { "Child_Id_Id" });
-            DropIndex("dbo.Children", new[] { "TeacherId_Id" });
-            DropTable("dbo.Users");
+            DropForeignKey("dbo.Parents", "UserId", "dbo.NurseryUsers");
+            DropForeignKey("dbo.Parents", "ChildId", "dbo.Children");
+            DropForeignKey("dbo.Children", "TeacherId", "dbo.Teachers");
+            DropIndex("dbo.Parents", new[] { "UserId" });
+            DropIndex("dbo.Parents", new[] { "ChildId" });
+            DropIndex("dbo.Children", new[] { "TeacherId" });
+            DropTable("dbo.NurseryUsers");
             DropTable("dbo.Parents");
             DropTable("dbo.Employees");
             DropTable("dbo.Teachers");
