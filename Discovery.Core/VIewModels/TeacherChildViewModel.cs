@@ -21,6 +21,5 @@ namespace Discovery.Core.VIewModels
         public string TLastName { get; set; }
         public string TPhoneNumber { get; set; }
         public string TEmail { get; set; }
-        public string TClassRoom { get; set; }
     }
 }

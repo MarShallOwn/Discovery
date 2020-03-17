@@ -21,6 +21,16 @@ namespace Discovery.WebUI.Controllers
             return View(children);
         }
 
+        [HttpPost]
+        public JsonResult doSearch(string Search)
+        {
+            List<Child> children = context.Children.Where(c => c.FirstName.Contains(Search)).ToList();
+
+            return Json(children, JsonRequestBehavior.AllowGet);
+        }
+
+
+
         public ActionResult Create()
         {
             Child c = new Child();
@@ -118,7 +128,6 @@ namespace Discovery.WebUI.Controllers
             {
                 return View(c);
             }
-
         }
 
         [HttpPost]

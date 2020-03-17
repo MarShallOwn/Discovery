@@ -74,7 +74,6 @@ namespace Discovery.WebUI.Controllers
                     TLastName = teacher.LastName,
                     TEmail = teacher.Email,
                     TPhoneNumber = teacher.PhoneNumber,
-                    TClassRoom = teacher.ClassRoom
                 };
 
                 return Json(viewModel, JsonRequestBehavior.AllowGet);
