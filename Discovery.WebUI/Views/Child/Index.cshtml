@@ -4,6 +4,10 @@
     ViewBag.Title = "Index";
 }
 
+   <head>
+       <link href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+   </head>
+
 <h2>Index</h2>
 
 <p>
@@ -11,35 +15,52 @@
 </p>
 
 <div class="col-md-10">
-    @Html.Editor("searchChild", new { htmlAttributes = new { @class = "form-control" } })
+    
+    <div style="width: 50vw;" class="pull-right">
+        <div id="radioParent" class="col-md-6 btn-group btn-group-toggle" data-toggle="buttons">
+            <label name="radios" class="btn btn-secondary active">
+                <input type="radio" name="options" id="option1" autocomplete="off" checked> FirstName
+            </label>
+            <label name="radios" class="btn btn-secondary">
+                <input type="radio" name="options" id="option2" autocomplete="off"> LastName
+            </label>
+            <label name="radios" class="btn btn-secondary">
+                <input type="radio" name="options" id="option3" autocomplete="off"> Disability Type
+            </label>
+        </div>
+        <div class="col">
+            @Html.Editor("searchChild", new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+        
+    </div>
 </div>
 
-<table id="go" class="table">
+<table id="go" class="table ">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.ActionLink("FirstName","Index", new { sortOrder = ViewBag.name })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.ActionLink("LastName", "Index", new { sortOrder = ViewBag.lastname })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Age)
+            @Html.ActionLink("Age", "Index", new { sortOrder = ViewBag.age })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Grade)
+            @Html.ActionLink("Grade", "Index", new { sortOrder = ViewBag.grade })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Disability_Type)
+            @Html.ActionLink("Disability Type", "Index", new { sortOrder = ViewBag.disability_type })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ClassRoom)
+            @Html.ActionLink("Classroom", "Index", new { sortOrder = ViewBag.classroom })
         </th>
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
+        <tr class="removable">
             <td>
                 @Html.DisplayFor(modelItem => item.FirstName)
             </td>
@@ -71,18 +92,26 @@
 
 @section Scripts{
     <script type="text/javascript">
+
         $(function () {
-            $("#searchChild").on('input',function () {
+
+            $("[name='radios']").change(ajaxWork);
+            $("#searchChild").on('input', ajaxWork);
+
+
+            function ajaxWork() {
 
                 var search = $("#searchChild").val();
+
+                var option = $("input[name='options']:checked").attr('id');
 
                 $.ajax({
                     type: "POST",
                     url: '@Url.Action("doSearch")',
-                    data: { Search: search },
+                    data: { Search: search , Option: option },
                     dataType: "json",
                     success: function (data) {
-                        $('#go td').remove();
+                        $('.removable').remove();
 
                         $.each(data, function (i, item) {
 
@@ -94,7 +123,7 @@
                             link2 = link2.replace('-1', IdValue);
                             link3 = link3.replace('-1', IdValue);
 
-                            var rows = "<tr>"
+                            var rows = "<tr class='removable'>"
                                 + "<td>" + item.FirstName + "</td>"
                                 + "<td>" + item.LastName + "</td>"
                                 + "<td>" + item.Age + "</td>"
@@ -110,7 +139,9 @@
                         });
                     },
                     });
-            });
+            }
+
         });
     </script>
+
     }
