@@ -6,58 +6,143 @@
 
 <h2>Index</h2>
 
+<h2>Index</h2>
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+
+<div class="col-md-10">
+
+    <div style="width: 50vw;" class="pull-right">
+        <div id="radioParent" class="col-md-6 btn-group btn-group-toggle" data-toggle="buttons">
+            <label name="radios" class="btn btn-secondary active">
+                <input type="radio" name="options" id="option1" autocomplete="off" checked> FirstName
+            </label>
+            <label name="radios" class="btn btn-secondary">
+                <input type="radio" name="options" id="option2" autocomplete="off"> LastName
+            </label>
+            <label name="radios" class="btn btn-secondary">
+                <input type="radio" name="options" id="option3" autocomplete="off"> Job
+            </label>
+            <label name="radios" class="btn btn-secondary">
+                <input type="radio" name="options" id="option4" autocomplete="off"> Salary
+            </label>
+        </div>
+        <div class="col">
+            @Html.Editor("searchChild", new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+    </div>
+</div>
+
+<table id="go" class="table ">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.ActionLink("FirstName", "Index", new { sortOrder = ViewBag.name })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.ActionLink("LastName", "Index", new { sortOrder = ViewBag.lastname })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Age)
+            @Html.ActionLink("Age", "Index", new { sortOrder = ViewBag.age })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Street)
+            @Html.ActionLink("Street", "Index", new { sortOrder = ViewBag.street })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Job)
+            @Html.ActionLink("Job Type", "Index", new { sortOrder = ViewBag.job })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Salary)
+            @Html.ActionLink("Salary", "Index", new { sortOrder = ViewBag.salary })
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Age)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Street)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Job)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Salary)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr class="removable">
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Street)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Job)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Salary)
+            </td>
+            <td id="linkers">
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>
+
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $(function () {
+
+            $("[name='radios']").change(ajaxWork);
+            $("#searchChild").on('input', ajaxWork);
+
+
+            function ajaxWork() {
+
+                var search = $("#searchChild").val();
+
+                var option = $("input[name='options']:checked").attr('id');
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("doSearch")',
+                    data: { Search: search , Option: option },
+                    dataType: "json",
+                    success: function (data) {
+                        $('.removable').remove();
+
+                        $.each(data, function (i, item) {
+
+                            var IdValue = item.Id;
+                            var link1 = '@Html.ActionLink("Edit", "Edit", new{id=-1})'
+                            var link2 = '@Html.ActionLink("Details", "Details", new{id=-1})'
+                            var link3 = '@Html.ActionLink("Delete", "Delete", new{id=-1})'
+                            link1 = link1.replace('-1', IdValue);
+                            link2 = link2.replace('-1', IdValue);
+                            link3 = link3.replace('-1', IdValue);
+
+                            var rows = "<tr class='removable'>"
+                                + "<td>" + item.FirstName + "</td>"
+                                + "<td>" + item.LastName + "</td>"
+                                + "<td>" + item.Age + "</td>"
+                                + "<td>" + item.Street + "</td>"
+                                + "<td>" + item.Job + "</td>"
+                                + "<td>" + item.Salary + "</td>"
+                                + "<td>"
+                                + link1 + " | "
+                                + link2 + " | "
+                                + link3
+                                + "</tr>";
+                            $('#go').append(rows);
+                        });
+                    },
+                    });
+            }
+
+        });
+    </script>
+
+}

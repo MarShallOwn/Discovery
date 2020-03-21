@@ -1,31 +1,136 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+
+    Layout = "~/Views/Shared/_View.cshtml";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <div  class="p-0 page-holder bg-cover d-flex container-fluid">
+
+        <div style="z-index: -1;">
+            <img style="height: 100vh;width: 100vw;" src="~/Content/Images/bedo.jpg">
+        </div>
+
+        <div style="z-index: 1; position: absolute;" class="w-100 row align-self-center justify-content-center">
+            <p>
+                <span class="title">Discovery Nursery</span>
+                <br>
+                <span class="dynamics ">Discovery Their <span id="test"></span></span>
+            </p>
+        </div>
+    </div>
+
+
+    <div class="mission">
+        <h1>our mission</h1>
+        <p>
+            Our Mission at the Discovery nursery is to develop the “Whole Child”, where the children gain confidence through the acquisition of basic skills. We establish in children love for learning, strong work ethics, creativity, respect .
+        </p>
+        <br>
+        <video loop="loop" autoplay="autoplay" muted="muted">
+            <source src="~/Content/Images/good.mp4">
+        </video>
+
+    </div>
+
+
+    <div class="building-background container-fluid">
+        <div>
+            <br>
+            <p class="answer">Why do you choose us ?!</p>
+        </div>
+
+
+        <div class="container">
+
+            <div class="mt-5 row">
+                <div class="building d-flex align-items-center h-100 col-md-6">
+                    <p>
+                        Education at Discovery nursery is like a beautiful dance where teachers, parents, and students collaborate in a loving and nurturing, academically rich environment. Each student’s unique strengths, weaknesses and gifts are embraced and supported as we celebrate new milestones, both big and small, together.
+                    </p>
+                </div>
+
+                <div class="d-flex align-items-center col-md-6">
+                    <img style="z-index: 1; width: 100vw;height: 50vh;" class="img-fluid" src="~/Content/Images/ga.jpg">
+                </div>
+            </div>
+
+            <div class="mt-5 row">
+
+                <div class="d-flex align-items-center col-md-6">
+                    <img style="z-index: 1; width: 100vw;height: 50vh;" class="img-fluid" src="~/Content/Images/22.jpg">
+                </div>
+
+                <div class="building d-flex align-items-center h-100 col-md-6">
+                    <p>
+                        With proper care and education, every child can reach his or her full potential.
+                        The more parents understand about how a child grows, the better prepared they’ll be to recognize special needs – and seek help promptly.
+                        Children with special needs require extra attention, teaching, care and love!
+                    </p>
+                </div>
+
+            </div>
+
+
+
+            <div class="mt-5 row">
+                <div class="building d-flex align-items-center h-100 col-md-6">
+                    <p>
+                        Teachers work to promote and manage the growth of their students in conjunction with their special needs.
+                        Our Teachers will modify the general education curriculum to make sure each student’s special individual needs are met.
+                        They patient, accepting, understanding and they know how to discovery each child's talent.
+                    </p>
+                </div>
+
+                <div class="d-flex align-items-center col-md-6">
+                    <img style="z-index: 1; width: 100vw;height: 50vh;" class="img-fluid" src="~/Content/Images/kk.jpg">
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+<div class="activities container-fluid p-3 text-white ">
+    <div class="row justify-content-center">
+        <h1>our activities</h1>
+        <br>
+
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <img class="rounded-circle img-fluid" src="~/Content/Images/drawing.jpg">
+        </div>
+        <div class="col-md-3">
+            <img class="rounded-circle img-fluid" src="~/Content/Images/singing.jpg">
+        </div>
+        <div class="col-md-3">
+            <img class="rounded-circle img-fluid" src="~/Content/Images/cooking.jpg">
+        </div>
+        <div class="col-md-3">
+            <img class="rounded-circle img-fluid" src="~/Content/Images/ballet.jpg">
+        </div>
+    </div>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+
+
+
+    <script type="text/javascript">
+
+        var v = document.getElementById("test");
+
+    var k = ["Talent", "Dream", "Passion", "Creativity"];
+    var i = 0;
+    v.innerHTML = k[0];
+    setInterval(function () {
+        v.className = v.className === "show" ? "hide" : "show";
+
+        if (v.className === "show") {
+            i++;
+            v.innerHTML = k[i % k.length];
+        }
+    }, 2000);
+
+    </script>
+

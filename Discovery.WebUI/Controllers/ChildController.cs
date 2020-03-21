@@ -69,9 +69,11 @@ namespace Discovery.WebUI.Controllers
             return View(children);
         }
 
+
         [HttpPost]
         public JsonResult doSearch(string Search, string Option)
         {
+
             List<Child> children;
             switch (Option)
             {
@@ -85,7 +87,6 @@ namespace Discovery.WebUI.Controllers
                     children = context.Children.Where(c => c.FirstName.StartsWith(Search)).ToList();
                     break;
             }
-            
 
             return Json(children, JsonRequestBehavior.AllowGet);
         }

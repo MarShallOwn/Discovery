@@ -48,6 +48,7 @@
     <Compile Include="Models\Teacher.cs" />
     <Compile Include="Models\NurseryUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VIewModels\ParentUserChildViewModel.cs" />
     <Compile Include="VIewModels\TeacherChildViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,0 +1,12 @@
+﻿@model Discovery.Core.Models.Child
+
+@{
+    ViewBag.Title = "Error";
+}
+
+<h1 class="text-danger">Error.</h1>
+<h2 class="text-danger">(@Model.FirstName @Model.LastName) Isnt Linked with Parent account</h2>
+
+<div>
+    @Html.ActionLink("Back to List", "Index", "Child")
+</div>

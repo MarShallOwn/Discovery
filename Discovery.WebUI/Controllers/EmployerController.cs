@@ -13,11 +13,83 @@ namespace Discovery.WebUI.Controllers
         DataContext context = new DataContext();
 
         // GET: Employer
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
-            List<Employee> e = context.Employees.ToList();
 
-            return View(e);
+            ViewBag.name = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.lastName = sortOrder == "LastN" ? "LastN_desc" : "LastN";
+            ViewBag.age = sortOrder == "Age" ? "Age_desc" : "Age";
+            ViewBag.street = sortOrder == "Street" ? "Street_desc" : "Street";
+            ViewBag.job = sortOrder == "Job" ? "Job_desc" : "Job";
+            ViewBag.salary = sortOrder == "Salary" ? "Salary_desc" : "Salary";
+
+            List<Employee> employees = context.Employees.ToList();
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    employees = employees.OrderByDescending(c => c.FirstName).ToList();
+                    break;
+                case "LastN":
+                    employees = employees.OrderBy(c => c.LastName).ToList();
+                    break;
+                case "LastN_desc":
+                    employees = employees.OrderByDescending(c => c.LastName).ToList();
+                    break;
+                case "Age":
+                    employees = employees.OrderBy(c => c.Age).ToList();
+                    break;
+                case "Age_desc":
+                    employees = employees.OrderByDescending(c => c.Age).ToList();
+                    break;
+                case "Street":
+                    employees = employees.OrderBy(c => c.Street).ToList();
+                    break;
+                case "Street_desc":
+                    employees = employees.OrderByDescending(c => c.Street).ToList();
+                    break;
+                case "Job":
+                    employees = employees.OrderBy(c => c.Job).ToList();
+                    break;
+                case "Job_desc":
+                    employees = employees.OrderByDescending(c => c.Job).ToList();
+                    break;
+                case "Salary":
+                    employees = employees.OrderBy(c => c.Salary).ToList();
+                    break;
+                case "Salary_desc":
+                    employees = employees.OrderByDescending(c => c.Salary).ToList();
+                    break;
+                default:
+                    employees = employees.OrderBy(c => c.FirstName).ToList();
+                    break;
+            }
+
+            return View(employees);
+        }
+
+        [HttpPost]
+        public JsonResult doSearch(string Search, string Option)
+        {
+            List<Employee> employees;
+            switch (Option)
+            {
+                case "option2":
+                    employees = context.Employees.Where(c => c.LastName.StartsWith(Search)).ToList();
+                    break;
+                case "option3":
+                    employees = context.Employees.Where(c => c.Job.StartsWith(Search)).ToList();
+                    break;
+                case "option4":
+                    employees = context.Employees.Where(c => c.Salary.ToString().StartsWith(Search)).ToList();
+                    break;
+                default:
+                    employees = context.Employees.Where(c => c.FirstName.StartsWith(Search)).ToList();
+                    break;
+            }
+
+
+            return Json(employees, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Create()

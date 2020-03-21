@@ -17,8 +17,8 @@ namespace Discovery.WebUI.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            NurseryUser user = context.Users.FirstOrDefault(u => u.Email == User.Identity.Name);
 
+            NurseryUser user = context.Users.FirstOrDefault(u => u.Email == User.Identity.Name);
             return View(user);
         }
 

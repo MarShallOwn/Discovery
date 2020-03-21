@@ -1,0 +1,95 @@
+﻿@using Microsoft.AspNet.Identity
+<!doctype html>
+<html lang="en">
+<head>
+
+    <link href="https://fonts.googleapis.com/css?family=Courgette|Dancing+Script|Gloria+Hallelujah|Gochi+Hand|Indie+Flower|Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=PT+Serif&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great&display=swap" rel="stylesheet">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="~/Content/Mine.css" type="text/css" />
+
+    <title>Discovery nursery</title>
+</head>
+
+
+<body>
+    <nav style="position: fixed; z-index: 999; background-color: black;" class="w-100 navbar navbar-expand-lg navbar-dark">
+
+        <div class="container">
+
+            @Html.ActionLink("Discovery Nursery", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <!-- Collapse button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+                    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Collapsible content -->
+            <div class="collapse navbar-collapse" id="basicExampleNav">
+
+                <!-- Links -->
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Children", "Index", "Child", new { area = "" }, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Teachers", "Index", "Teacher", new { area = "" }, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Employees", "Index", "Employer", new { area = "" }, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("User", "Index", "User", new { area = "" }, new { @class = "nav-link" })
+                    </li>
+                </ul>
+                <!-- Links -->
+
+
+
+
+                @if (Request.IsAuthenticated)
+                {
+                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div style="width: 33vw;">
+                            <ul class="w-100 navbar-nav ml-auto">
+                                <li style="text-align:end;" class="col-md-8 nav-item">
+                                    @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })
+                                </li>
+                                <li class="col-md-4 justify-content-center nav-item"><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                            </ul>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "nav-link" })</li>
+                    </ul>
+                }
+
+
+                <!-- Collapsible content -->
+
+            </div>
+            <!-- Navbar brand -->
+            </div>
+    </nav>
+    <!--/.Navbar-->
+    @RenderBody()
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
