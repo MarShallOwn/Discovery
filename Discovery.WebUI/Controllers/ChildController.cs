@@ -109,6 +109,10 @@ namespace Discovery.WebUI.Controllers
             }
             else
             {
+                Parent parent = new Parent();
+                parent.ChildId = c.Id;
+
+                context.Parents.Add(parent);
                 context.Children.Add(c);
                 context.SaveChanges();
 
@@ -204,7 +208,13 @@ namespace Discovery.WebUI.Controllers
             }
             else
             {
+                Parent pToDelete = context.Parents.FirstOrDefault(p => p.ChildId == cToDelete.Id);
                 context.Children.Remove(cToDelete);
+                if(pToDelete != null)
+                {
+                    context.Parents.Remove(pToDelete);
+                }
+
                 context.SaveChanges();
 
                 return RedirectToAction("Index");

@@ -21,10 +21,6 @@ namespace Discovery.WebUI.Controllers
 
             
             Child child = context.Children.FirstOrDefault(c => c.Id == Id);
-            if (parent == null)
-            {
-                return PartialView("_ChildReportError", child);
-            }
             NurseryUser user = context.Users.FirstOrDefault(u => u.Id == parent.UserId);
             
 

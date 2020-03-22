@@ -17,7 +17,6 @@ namespace Discovery.WebUI.Controllers
         [Authorize]
         public ActionResult Index()
         {
-
             NurseryUser user = context.Users.FirstOrDefault(u => u.Email == User.Identity.Name);
             return View(user);
         }
@@ -51,15 +50,12 @@ namespace Discovery.WebUI.Controllers
 
 
                 Parent parent = context.Parents.FirstOrDefault(p => p.ChildId == child.Id);
-
-                if (parent == null)
+                if(parent.UserId == null)
                 {
-                    parent = new Parent();
                     parent.UserId = context.Users.FirstOrDefault(u => u.Email == User.Identity.Name).Id;
-                    parent.ChildId = child.Id;
-                    context.Parents.Add(parent);
-                    context.SaveChanges();
                 }
+                
+                context.SaveChanges();
 
                 TeacherChildViewModel viewModel = new TeacherChildViewModel()
                 {
