@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace Discovery.WebUI.Controllers
 {
+    [Authorize]
     public class ParentController : Controller
     {
         // GET: Parent

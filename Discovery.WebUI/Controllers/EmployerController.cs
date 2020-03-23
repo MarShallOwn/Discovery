@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Discovery.WebUI.Controllers
 {
+    [Authorize]
     public class EmployerController : Controller
     {
         DataContext context = new DataContext();

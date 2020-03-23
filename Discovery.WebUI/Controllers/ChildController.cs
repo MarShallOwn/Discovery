@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Discovery.WebUI.Controllers
 {
+    [Authorize]
     public class ChildController : Controller
     {
 
@@ -109,6 +110,12 @@ namespace Discovery.WebUI.Controllers
             }
             else
             {
+                if(c.ClassRoom != null)
+                {
+                    c.TeacherId = context.Teachers.FirstOrDefault(t => t.ClassRoom == c.ClassRoom).Id;
+                }
+                
+
                 Parent parent = new Parent();
                 parent.ChildId = c.Id;
 
@@ -151,6 +158,7 @@ namespace Discovery.WebUI.Controllers
                 }
                 else
                 {
+
                     cToEdit.FirstName = c.FirstName;
                     cToEdit.LastName = c.LastName;
                     cToEdit.Age = c.Age;
@@ -159,6 +167,12 @@ namespace Discovery.WebUI.Controllers
                     cToEdit.Grade = c.Grade;
                     cToEdit.Degree = c.Degree;
                     cToEdit.Disability_Type = c.Disability_Type;
+
+                    if (cToEdit.ClassRoom != null)
+                    {
+                        Teacher teacher = context.Teachers.FirstOrDefault(t => t.ClassRoom == c.ClassRoom);
+                        cToEdit.TeacherId = teacher == null ? null : teacher.Id;
+                    }
 
                     context.SaveChanges();
 

@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Discovery.WebUI.Controllers
 {
+    [Authorize]
     public class TeacherController : Controller
     {
         DataContext context = new DataContext();
@@ -35,6 +36,14 @@ namespace Discovery.WebUI.Controllers
             }
             else
             {
+
+                List<Child> children = context.Children.Where(c => c.ClassRoom == t.ClassRoom).ToList();
+
+                foreach(Child child in children)
+                {
+                    child.TeacherId = t.Id;
+                }
+
                 context.Teachers.Add(t);
                 context.SaveChanges();
                 return RedirectToAction("index");
@@ -76,6 +85,19 @@ namespace Discovery.WebUI.Controllers
                     te.PhoneNumber = t.PhoneNumber;
                     te.Email = t.Email;
                     te.ClassRoom = t.ClassRoom;
+
+                    List<Child> children = context.Children.Where(c => c.ClassRoom == t.ClassRoom).ToList();
+                    List<Child> childrenRemove = context.Children.Where(c => c.TeacherId == t.Id).ToList();
+
+                    foreach(Child childRemove in childrenRemove)
+                    {
+                        childRemove.TeacherId = null;
+                    }
+
+                    foreach (Child child in children)
+                    {
+                        child.TeacherId = t.Id;
+                    }
 
                     context.SaveChanges();
 
@@ -124,6 +146,14 @@ namespace Discovery.WebUI.Controllers
             }
             else
             {
+                List<Child> children = context.Children.Where(c => c.ClassRoom == t.ClassRoom).ToList();
+
+                foreach (Child child in children)
+                {
+                    child.TeacherId = null;
+                }
+
+
                 context.Teachers.Remove(t);
                 context.SaveChanges();
 

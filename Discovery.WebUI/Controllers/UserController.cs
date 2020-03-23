@@ -9,12 +9,12 @@ using System.Web.Mvc;
 
 namespace Discovery.WebUI.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         DataContext context = new DataContext();
 
         // GET: User
-        [Authorize]
         public ActionResult Index()
         {
             NurseryUser user = context.Users.FirstOrDefault(u => u.Email == User.Identity.Name);
