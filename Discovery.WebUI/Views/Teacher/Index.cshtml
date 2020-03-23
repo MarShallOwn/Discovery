@@ -1,39 +1,61 @@
 ﻿@model IEnumerable<Discovery.Core.Models.Teacher>
 
 @{
-      ViewBag.Title = "Index";
+    ViewBag.Title = "Index";
 }
 
-<h3>Index</h3>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
-        <tr>
-           
+<h2>Index</h2>
 
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PhoneNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ClassRoom)
-            </th>
-            
-            <th></th>
-        </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
-            
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div class="col-md-10 container">
+    <div style="width: 100%;" class="pull-right row">
+        <div id="radioParent" class="col-md-6 btn-group btn-group-toggle" data-toggle="buttons">
+            <label name="radios" class="btn btn-secondary active">
+                <input type="radio" name="options" id="option1" autocomplete="off" checked> FirstName
+            </label>
+            <label name="radios" class="btn btn-secondary">
+                <input type="radio" name="options" id="option2" autocomplete="off"> LastName
+            </label>
+            <label name="radios" class="btn btn-secondary">
+                <input type="radio" name="options" id="option3" autocomplete="off"> Email
+            </label>
+            <label name="radios" class="btn btn-secondary">
+                <input type="radio" name="options" id="option4" autocomplete="off"> Phone Number
+            </label>
+        </div>
+        <div class="col">
+            @Html.Editor("searchTeacher", new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+    </div>
+</div>
+
+<table id="go" class="table ">
+    <tr>
+        <th>
+            @Html.ActionLink("FirstName", "Index", new { sortOrder = ViewBag.name })
+        </th>
+        <th>
+            @Html.ActionLink("LastName", "Index", new { sortOrder = ViewBag.lastname })
+        </th>
+        <th>
+            @Html.ActionLink("Email", "Index", new { sortOrder = ViewBag.email })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </th>
+        <th>
+            @Html.ActionLink("ClassRoom", "Index", new { sortOrder = ViewBag.classroom })
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr class="removable">
             <td>
                 @Html.DisplayFor(modelItem => item.FirstName)
             </td>
@@ -41,20 +63,76 @@
                 @Html.DisplayFor(modelItem => item.LastName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
+                @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Email)
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ClassRoom)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            <td id="linkers">
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
     }
-    
-    </table>
+
+</table>
+
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $(function () {
+
+            $("[name='radios']").change(ajaxWork);
+            $("#searchTeacher").on('input', ajaxWork);
+
+
+            function ajaxWork() {
+
+                var search = $("#searchTeacher").val();
+
+                var option = $("input[name='options']:checked").attr('id');
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("doSearch")',
+                    data: { Search: search , Option: option },
+                    dataType: "json",
+                    success: function (data) {
+                        $('.removable').remove();
+
+                        $.each(data, function (i, item) {
+
+                            var IdValue = item.Id;
+                            var link1 = '@Html.ActionLink("Edit", "Edit", new{id=-1})'
+                            var link2 = '@Html.ActionLink("Details", "Details", new{id=-1})'
+                            var link3 = '@Html.ActionLink("Delete", "Delete", new{id=-1})'
+                            link1 = link1.replace('-1', IdValue);
+                            link2 = link2.replace('-1', IdValue);
+                            link3 = link3.replace('-1', IdValue);
+
+                            var rows = "<tr class='removable'>"
+                                + "<td>" + item.FirstName + "</td>"
+                                + "<td>" + item.LastName + "</td>"
+                                + "<td>" + item.Email + "</td>"
+                                + "<td>" + item.PhoneNumber + "</td>"
+                                + "<td>" + item.ClassRoom + "</td>"
+                                + "<td>"
+                                + link1 + " | "
+                                + link2 + " | "
+                                + link3
+                                + "</tr>";
+                            $('#go').append(rows);
+                        });
+                    },
+                    });
+            }
+
+        });
+    </script>
+
+}

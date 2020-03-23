@@ -15,10 +15,70 @@ namespace Discovery.WebUI.Controllers
 
         // GET: Teacher
 
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
-            List<Teacher> Teachers = context.Teachers.ToList();
-            return View(Teachers);
+
+            ViewBag.name = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.lastName = sortOrder == "LastN" ? "LastN_desc" : "LastN";
+            ViewBag.email = sortOrder == "Email" ? "Email_desc" : "Email";
+            ViewBag.classroom = sortOrder == "Classroom" ? "Classroom_desc" : "Classroom";
+
+            List<Teacher> teachers = context.Teachers.ToList();
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    teachers = teachers.OrderByDescending(t => t.FirstName).ToList();
+                    break;
+                case "LastN":
+                    teachers = teachers.OrderBy(t => t.LastName).ToList();
+                    break;
+                case "LastN_desc":
+                    teachers = teachers.OrderByDescending(t => t.LastName).ToList();
+                    break;
+                case "Email":
+                    teachers = teachers.OrderBy(t => t.Email).ToList();
+                    break;
+                case "Email_desc":
+                    teachers = teachers.OrderByDescending(t => t.Email).ToList();
+                    break;
+                case "Classroom":
+                    teachers = teachers.OrderBy(t => t.ClassRoom).ToList();
+                    break;
+                case "Classroom_desc":
+                    teachers = teachers.OrderByDescending(t => t.ClassRoom).ToList();
+                    break;
+                default:
+                    teachers = teachers.OrderBy(t => t.FirstName).ToList();
+                    break;
+            }
+
+            return View(teachers);
+        }
+
+
+        [HttpPost]
+        public JsonResult doSearch(string Search, string Option)
+        {
+
+            List<Teacher> teachers;
+            switch (Option)
+            {
+                case "option2":
+                    teachers = context.Teachers.Where(t => t.LastName.StartsWith(Search)).ToList();
+                    break;
+                case "option3":
+                    teachers = context.Teachers.Where(t => t.Email.StartsWith(Search)).ToList();
+                    break;
+                case "option4":
+                    teachers = context.Teachers.Where(t => t.PhoneNumber.StartsWith(Search)).ToList();
+                    break;
+                default:
+                    teachers = context.Teachers.Where(t => t.FirstName.StartsWith(Search)).ToList();
+                    break;
+            }
+
+            return Json(teachers, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Create()

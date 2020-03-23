@@ -29,40 +29,40 @@ namespace Discovery.WebUI.Controllers
             switch (sortOrder)
             {
                 case "name_desc":
-                    employees = employees.OrderByDescending(c => c.FirstName).ToList();
+                    employees = employees.OrderByDescending(e => e.FirstName).ToList();
                     break;
                 case "LastN":
-                    employees = employees.OrderBy(c => c.LastName).ToList();
+                    employees = employees.OrderBy(e => e.LastName).ToList();
                     break;
                 case "LastN_desc":
-                    employees = employees.OrderByDescending(c => c.LastName).ToList();
+                    employees = employees.OrderByDescending(e => e.LastName).ToList();
                     break;
                 case "Age":
-                    employees = employees.OrderBy(c => c.Age).ToList();
+                    employees = employees.OrderBy(e => e.Age).ToList();
                     break;
                 case "Age_desc":
-                    employees = employees.OrderByDescending(c => c.Age).ToList();
+                    employees = employees.OrderByDescending(e => e.Age).ToList();
                     break;
                 case "Street":
-                    employees = employees.OrderBy(c => c.Street).ToList();
+                    employees = employees.OrderBy(e => e.Street).ToList();
                     break;
                 case "Street_desc":
-                    employees = employees.OrderByDescending(c => c.Street).ToList();
+                    employees = employees.OrderByDescending(e => e.Street).ToList();
                     break;
                 case "Job":
-                    employees = employees.OrderBy(c => c.Job).ToList();
+                    employees = employees.OrderBy(e => e.Job).ToList();
                     break;
                 case "Job_desc":
-                    employees = employees.OrderByDescending(c => c.Job).ToList();
+                    employees = employees.OrderByDescending(e => e.Job).ToList();
                     break;
                 case "Salary":
-                    employees = employees.OrderBy(c => c.Salary).ToList();
+                    employees = employees.OrderBy(e => e.Salary).ToList();
                     break;
                 case "Salary_desc":
-                    employees = employees.OrderByDescending(c => c.Salary).ToList();
+                    employees = employees.OrderByDescending(e => e.Salary).ToList();
                     break;
                 default:
-                    employees = employees.OrderBy(c => c.FirstName).ToList();
+                    employees = employees.OrderBy(e => e.FirstName).ToList();
                     break;
             }
 
@@ -76,16 +76,16 @@ namespace Discovery.WebUI.Controllers
             switch (Option)
             {
                 case "option2":
-                    employees = context.Employees.Where(c => c.LastName.StartsWith(Search)).ToList();
+                    employees = context.Employees.Where(e => e.LastName.StartsWith(Search)).ToList();
                     break;
                 case "option3":
-                    employees = context.Employees.Where(c => c.Job.StartsWith(Search)).ToList();
+                    employees = context.Employees.Where(e => e.Job.StartsWith(Search)).ToList();
                     break;
                 case "option4":
-                    employees = context.Employees.Where(c => c.Salary.ToString().StartsWith(Search)).ToList();
+                    employees = context.Employees.Where(e => e.Salary.ToString().StartsWith(Search)).ToList();
                     break;
                 default:
-                    employees = context.Employees.Where(c => c.FirstName.StartsWith(Search)).ToList();
+                    employees = context.Employees.Where(e => e.FirstName.StartsWith(Search)).ToList();
                     break;
             }
 
