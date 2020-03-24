@@ -15,9 +15,14 @@ namespace Discovery.WebUI.Controllers
 
         public ActionResult Index()
         {
-
             return View();
         }
 
+        public PartialViewResult getUser()
+        {
+            NurseryUser user = context.Users.FirstOrDefault(u => u.Email == User.Identity.Name);
+
+            return PartialView("_getUser",user);
+        }
     }
 }

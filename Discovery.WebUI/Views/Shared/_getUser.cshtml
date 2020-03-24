@@ -1,0 +1,12 @@
+﻿@model Discovery.Core.Models.NurseryUser
+
+@if (Request.IsAuthenticated)
+{
+
+    <ul class="nav navbar-nav navbar-right">
+        <li class="w-100">
+            @Html.ActionLink("Hello " + Model.FirstName + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })
+        </li>
+    </ul>
+
+}

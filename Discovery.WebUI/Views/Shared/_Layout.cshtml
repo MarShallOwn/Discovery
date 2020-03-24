@@ -34,7 +34,13 @@
                         @Html.ActionLink("User", "Index", "User", new { area = "" }, new { @class = "nav-link" })
                     </li>
                 </ul>
-                @Html.Partial("_LoginPartial")
+                    @Html.Partial("_LoginPartial")
+
+                    @{ 
+                        Html.RenderAction("getUser", "Home");
+                    }
+                    
+
             </div>
         </div>
     </div>
