@@ -55,6 +55,10 @@
     <Compile Include="Migrations\202003160753123_Initial.Designer.cs">
       <DependentUpon>202003160753123_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003250013556_validate_child_Teacher_Employee.cs" />
+    <Compile Include="Migrations\202003250013556_validate_child_Teacher_Employee.Designer.cs">
+      <DependentUpon>202003250013556_validate_child_Teacher_Employee.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -71,6 +75,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202003160753123_Initial.resx">
       <DependentUpon>202003160753123_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003250013556_validate_child_Teacher_Employee.resx">
+      <DependentUpon>202003250013556_validate_child_Teacher_Employee.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
