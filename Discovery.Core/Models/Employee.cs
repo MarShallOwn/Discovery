@@ -16,15 +16,14 @@ namespace Discovery.Core.Models
         [StringLength(15)]
         public string LastName { get; set; }
         [Required]
-        [Range(20,60)]
+        [Range(15,60)]
         public int Age { get; set; }
         [Required]
-        [RegularExpression("123 test st, test city, test Country")]
         public string Street { get; set; }
         [Required]
         public string Job { get; set; }
         [Required]
-        [Range(500,3000)]
+        [Range(500,5000)]
         public decimal Salary { get; set; }
     }
 }

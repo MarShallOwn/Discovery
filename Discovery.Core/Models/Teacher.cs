@@ -16,7 +16,7 @@ namespace Discovery.Core.Models
         [StringLength(15)]
         public string LastName { get; set; }
         [Required]
-        [RegularExpression("^01[0,1,2,5]{1}[0-9]{8}")]
+        [RegularExpression("^01[0,1,2,5]{1}[0-9]{8}",ErrorMessage = "The number should be eleven digits and the third number must be (0,1,2,5) .")]
         [StringLength(11)]
         public string PhoneNumber { get; set; }
         [Required]

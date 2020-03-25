@@ -21,11 +21,11 @@ namespace Discovery.Core.Models
         public string Password { get; set; }
 
         [Required]
-        [Range(0,5)]
+        [Range(1,7)]
         public int Age { get; set; }
 
         [Required]
-        [Range(0,100)]
+        [Range(1,7)]
         public int Grade { get; set; }
 
 
