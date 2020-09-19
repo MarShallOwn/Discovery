@@ -41,15 +41,6 @@ namespace Discovery.WebUI
                 roleManager.Create(role);
 
             }
-
-            // creating Creating Employee role     
-            if (!roleManager.RoleExists("Employee"))
-            {
-                var role = new IdentityRole();
-                role.Name = "Employee";
-                roleManager.Create(role);
-
-            }
         }
     }
 }

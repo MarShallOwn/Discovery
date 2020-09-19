@@ -64,6 +64,7 @@
     <Compile Include="VIewModels\AdminViewModel.cs" />
     <Compile Include="VIewModels\ParentUserChildViewModel.cs" />
     <Compile Include="VIewModels\TeacherChildViewModel.cs" />
+    <Compile Include="VIewModels\UserWithRoleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

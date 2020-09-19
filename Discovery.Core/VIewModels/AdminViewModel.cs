@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Discovery.Core.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,5 +15,6 @@ namespace Discovery.Core.VIewModels
         public string userEmail { get; set; }
         public List<string> roles { get; set; }
         public string role { get; set; }
+        public List<UserWithRoleViewModel> UsersWithRoleModel { get; set; }
     }
 }

@@ -34,25 +34,39 @@
             <!-- Collapsible content -->
             <div class="collapse navbar-collapse" id="basicExampleNav">
 
-                <!-- Links -->
+                @if (Request.IsAuthenticated)
+                {
+                    <!-- Links -->
                 <ul class="navbar-nav mr-auto">
+
+                    @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
+                    {
+                        <li class="nav-item">
+                            @Html.ActionLink("Children", "Index", "Child", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                    }
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item">
+                            @Html.ActionLink("Teachers", "Index", "Teacher", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Employees", "Index", "Employer", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("AdminControl", "Index", "Admin", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                    }
                     <li class="nav-item">
-                        @Html.ActionLink("Children", "Index", "Child", new { area = "" }, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Teachers", "Index", "Teacher", new { area = "" }, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Employees", "Index", "Employer", new { area = "" }, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("User", "Index", "User", new { area = "" }, new { @class = "nav-link" })
+                        @Html.ActionLink("Parent", "Index", "User", new { area = "" }, new { @class = "nav-link" })
                     </li>
                 </ul>
+                }
                 <!-- Links -->
 
-                @{ 
-                    Html.RenderAction("getUser","Home");
+                @{
+                    Html.RenderAction("getUser", "Home");
                 }
 
 
@@ -62,14 +76,14 @@
                     {
                         @Html.AntiForgeryToken()
 
-                            <ul class="nav navbar-nav navbar-right">
-                                @{/*
-                                    <li style="text-align:end;" class="col-md-8 nav-item">
-                                    @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })
-                                </li>
-                                */}
-                                <li><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-                            </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            @{/*
+                                  <li style="text-align:end;" class="col-md-8 nav-item">
+                                  @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })
+                              </li>
+                              */}
+                            <li><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                        </ul>
                     }
                 }
                 else

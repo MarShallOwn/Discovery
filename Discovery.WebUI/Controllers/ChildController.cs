@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Discovery.WebUI.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Teacher")]
     public class ChildController : Controller
     {
 

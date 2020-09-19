@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Discovery.WebUI.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class TeacherController : Controller
     {
         DataContext context = new DataContext();
@@ -60,7 +60,6 @@ namespace Discovery.WebUI.Controllers
         [HttpPost]
         public JsonResult doSearch(string Search, string Option)
         {
-
             List<Teacher> teachers;
             switch (Option)
             {

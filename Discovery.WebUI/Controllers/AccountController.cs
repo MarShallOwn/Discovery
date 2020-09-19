@@ -61,6 +61,10 @@ namespace Discovery.WebUI.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("index", "home");
+            }
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -72,6 +76,10 @@ namespace Discovery.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("index", "home");
+            }
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -143,6 +151,10 @@ namespace Discovery.WebUI.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("index", "home");
+            }
             return View();
         }
 
@@ -153,6 +165,10 @@ namespace Discovery.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("index", "home");
+            }
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
